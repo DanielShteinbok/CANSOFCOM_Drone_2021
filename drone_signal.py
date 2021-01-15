@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import math
+#import math
 import numpy
 import scipy
 
@@ -8,27 +8,28 @@ def sinc(x) :
         return 1
     return math.sin(x)/x
 
-def return_signal(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t) :
-    '''
-    returns the amplitude of the radio waves received from a drone,
-    according to the provided equation at a given time t
-    '''
-    # sigma is the variable that holds the result of the summation
-    sigma = 0
-    for n in range(N) :
-        sigma += math.e**( \
-            -1j * 4 * math.pi / lam * \
-            ((L1+L2)/2) * \
-                math.cos(theta) * \
-                math.sin(2 * math.pi * frot * t + (2*math.pi*n)/N) 
-        ) * sinc( \
-            (math.pi*4/lam) * \
-            ((L2-L1)/2) * \
-            math.cos(theta) * \
-            math.sin( ( (2*math.pi) * (frot * t + n/N) ) ) \
-        )
-       
-    return Ar*math.e**(1j*(2*math.pi*fc*t - ( ( (4*math.pi)/lam) * (R+Vrad*t) )  ) ) * sigma
+# DEPRECATED
+#def return_signal(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t) :
+    #'''
+    #returns the amplitude of the radio waves received from a drone,
+    #according to the provided equation at a given time t
+    #'''
+    ## sigma is the variable that holds the result of the summation
+    #sigma = 0
+    #for n in range(N) :
+        #sigma += math.e**( \
+            #-1j * 4 * math.pi / lam * \
+            #((L1+L2)/2) * \
+                #math.cos(theta) * \
+                #math.sin(2 * math.pi * frot * t + (2*math.pi*n)/N) 
+        #) * sinc( \
+            #(math.pi*4/lam) * \
+            #((L2-L1)/2) * \
+            #math.cos(theta) * \
+            #math.sin( ( (2*math.pi) * (frot * t + n/N) ) ) \
+        #)
+       #
+    #return Ar*math.e**(1j*(2*math.pi*fc*t - ( ( (4*math.pi)/lam) * (R+Vrad*t) )  ) ) * sigma
 
 def return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
     ''' (num, num, num, num, num, num, num, num, num, num, numpy.ndarray) -> numpy.ndarray
@@ -75,33 +76,34 @@ def return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
 
 # SCRIPT FOR TESTING THE ABOVE
 
+# testing the deprecated function:
+#time = []
+#output = []
 
-time = []
-output = []
+#Ar = 1
+#L1 = 1
+#L2 = 0
+#N = 4
+#R = 0
+#Vrad = 1
 
-Ar = 1
-L1 = 1
-L2 = 0
-N = 4
-R = 0
-Vrad = 1
-
-theta = math.pi/2 #depression angle say 30deg
-fc = 60e9 #Frequency, open question to find best frequency
-lam = 299792458/fc #wavelength wavelength = c / frequency
-fs = 1 #sampling frequency
-frot = 500 #frequency of drone prop rotation
+#theta = numpy.pi/2 #depression angle say 30deg
+#fc = 60e9 #Frequency, open question to find best frequency
+#lam = 299792458/fc #wavelength wavelength = c / frequency
+#fs = 1 #sampling frequency
+#frot = 500 #frequency of drone prop rotation
 
 
-for i in range(100):
-    time.append(i)
-    output.append(return_signal(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, fs*i))
+#for i in range(100):
+    #time.append(i)
+    #output.append(return_signal(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, fs*i))
 
-plt.plot(time, output)
-plt.show()
+#plt.plot(time, output)
+#plt.show()
 
-time_array = numpy.arange(100)
-plt.plot(time_array, return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, time_array))
-plt.show()
+# testing the new numpy-using function:
+#time_array = numpy.arange(100)
+#plt.plot(time_array, return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, time_array))
+#plt.show()
 
 
