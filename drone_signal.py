@@ -57,9 +57,9 @@ def return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
     that must be passed, in order to improve readability.
     '''
  
-    sigma = numpy.zeros(t.shape)
+    sigma = numpy.zeros(t.shape, dtype=complex)
     for n in range(N) :
-        sigma += numpy.e**( \
+        sigma += numpy.exp( \
             -1j * 4 * numpy.pi / lam * \
             ((L1+L2)/2) * \
                 numpy.cos(theta) * \
@@ -71,7 +71,7 @@ def return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
             numpy.sin( ( (2*numpy.pi) * (frot * t + n/N) ) ) \
         )
        
-    return Ar*numpy.e**(1j*(2*numpy.pi*fc*t - ( ( (4*numpy.pi)/lam) * (R+Vrad*t) )  ) ) * sigma   
+    return Ar*numpy.exp(1j*(2*numpy.pi*fc*t - 4*numpy.pi/lam * (R + Vrad * t)) ) * sigma   
 
 # SCRIPT FOR TESTING THE ABOVE
 
