@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 #import math
 import numpy
 
@@ -75,10 +74,9 @@ def return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
 
 # SCRIPT FOR TESTING THE ABOVE
 
-# testing the deprecated function:
-#time = []
-#output = []
+#import matplotlib.pyplot as plt
 
+# example values to use
 #Ar = 1
 #L1 = 1
 #L2 = 0
@@ -92,6 +90,11 @@ def return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
 #fs = 1 #sampling frequency
 #frot = 500 #frequency of drone prop rotation
 
+#------------------------------------------------------------
+# testing the deprecated function:
+
+#time = []
+#output = []
 
 #for i in range(100):
     #time.append(i)
@@ -100,7 +103,9 @@ def return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
 #plt.plot(time, output)
 #plt.show()
 
+#---------------------------------------------------------
 # testing the new numpy-using function:
+
 #time_array = numpy.arange(100)
 #plt.plot(time_array, return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, time_array))
 #plt.show()
