@@ -1,10 +1,10 @@
 #import math
 import numpy
 
-def sinc(x) :
-    if x == 0: 
-        return 1
-    return math.sin(x)/x
+#def sinc(x) :
+    #if x == 0: 
+        #return 1
+    #return math.sin(x)/x
 
 # DEPRECATED
 #def return_signal(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t) :
