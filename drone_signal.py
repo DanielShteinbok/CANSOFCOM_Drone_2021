@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 #import math
 import numpy
-import scipy
 
 def sinc(x) :
     if x == 0: 
