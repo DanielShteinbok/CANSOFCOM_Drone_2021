@@ -30,8 +30,10 @@ def return_signal(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t) :
        
     return Ar*math.e**(1j*(2*math.pi*fc*t - ( ( (4*math.pi)/lam) * (R+Vrad*t) )  ) ) * sigma
 
-def return_signal_array((Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
+def return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
     ''' (num, num, num, num, num, num, num, num, num, num, numpy.ndarray) -> numpy.ndarray
+
+    A NOTE ABOUT INPUTS: "num" means integer or float, and there are 11 parameters in total.
 
     returns the amplitudes of the received signal from a monitored drone
     as in return_signal(), except this one takes and returns an ndarray
@@ -57,19 +59,21 @@ def return_signal_array((Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, t):
  
     sigma = numpy.zeros(t.shape)
     for n in range(N) :
-        sigma += math.e**( \
-            -1j * 4 * math.pi / lam * \
+        sigma += numpy.e**( \
+            -1j * 4 * numpy.pi / lam * \
             ((L1+L2)/2) * \
-                math.cos(theta) * \
-                math.sin(2 * math.pi * frot * t + (2*math.pi*n)/N) 
-        ) * sinc( \
-            (math.pi*4/lam) * \
+                numpy.cos(theta) * \
+                numpy.sin(2 * numpy.pi * frot * t + (2*numpy.pi*n)/N) 
+        ) * numpy.sinc( \
+            (numpy.pi*4/lam) * \
             ((L2-L1)/2) * \
-            math.cos(theta) * \
-            math.sin( ( (2*math.pi) * (frot * t + n/N) ) ) \
+            numpy.cos(theta) * \
+            numpy.sin( ( (2*numpy.pi) * (frot * t + n/N) ) ) \
         )
        
-    return Ar*math.e**(1j*(2*math.pi*fc*t - ( ( (4*math.pi)/lam) * (R+Vrad*t) )  ) ) * sigma   
+    return Ar*numpy.e**(1j*(2*numpy.pi*fc*t - ( ( (4*numpy.pi)/lam) * (R+Vrad*t) )  ) ) * sigma   
+
+# SCRIPT FOR TESTING THE ABOVE
 
 
 time = []
@@ -93,8 +97,11 @@ for i in range(100):
     time.append(i)
     output.append(return_signal(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, fs*i))
 
-
-
-
 plt.plot(time, output)
 plt.show()
+
+time_array = numpy.arange(100)
+plt.plot(time_array, return_signal_array(Ar, L1, L2, N, R, Vrad, lam, theta, fc, frot, time_array))
+plt.show()
+
+
